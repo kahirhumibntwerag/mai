@@ -28,7 +28,7 @@ export default function Home() {
             </p>
             <Link
               href="/collections/dresses"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3.5 md:py-3.5 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity"
             >
               Shop Now
               <ArrowRight className="size-5" />

@@ -47,7 +47,7 @@ export function FlashSaleSection() {
               key={cat}
               type="button"
               onClick={() => setActiveFilter(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`min-h-[44px] px-4 py-3 md:py-2 rounded-full text-sm font-medium transition-colors ${
                 activeFilter === cat
                   ? "bg-primary text-primary-foreground"
                   : "bg-transparent text-muted-foreground hover:text-foreground"

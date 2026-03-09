@@ -89,21 +89,21 @@ export function CartSheet({ children }: CartSheetProps) {
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="size-8 rounded-none"
+                              className="size-10 min-w-10 min-h-10 md:size-8 md:min-w-8 md:min-h-8 rounded-none"
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity - 1)
                               }
                             >
                               <Minus className="size-3" />
                             </Button>
-                            <span className="w-8 text-center text-xs font-medium">
+                            <span className="w-8 text-center text-xs font-medium min-w-8">
                               {item.quantity}
                             </span>
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="size-8 rounded-none"
+                              className="size-10 min-w-10 min-h-10 md:size-8 md:min-w-8 md:min-h-8 rounded-none"
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity + 1)
                               }
@@ -114,7 +114,7 @@ export function CartSheet({ children }: CartSheetProps) {
                           <Button
                             type="button"
                             variant="link"
-                            className="text-xs text-muted-foreground hover:text-foreground h-auto p-0"
+                            className="text-xs text-muted-foreground hover:text-foreground h-auto min-h-[44px] py-2 px-0 flex items-center"
                             onClick={() => removeItem(item.id)}
                           >
                             Remove

@@ -39,7 +39,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         type="button"
         variant="ghost"
         size="icon"
-        className="absolute top-3 right-3 z-10 size-9 rounded-full bg-background/80 hover:bg-background text-foreground"
+        className="absolute top-3 right-3 z-10 size-10 min-w-10 min-h-10 md:size-9 md:min-w-0 md:min-h-0 rounded-full bg-background/80 hover:bg-background text-foreground"
         onClick={(e) => {
           e.preventDefault();
           toggleWishlist(product);

@@ -55,7 +55,7 @@ export function WishlistProductCard({ product }: WishlistProductCardProps) {
           <Button
             type="button"
             variant="outline"
-            className="flex-1 uppercase tracking-wider"
+            className="flex-1 min-h-12 py-3 text-sm font-medium uppercase tracking-wider"
             onClick={handleMoveToCart}
           >
             Add to Cart
@@ -63,7 +63,7 @@ export function WishlistProductCard({ product }: WishlistProductCardProps) {
           <Button
             type="button"
             variant="outline"
-            className="uppercase tracking-wider text-muted-foreground hover:text-foreground"
+            className="min-h-12 py-3 px-4 uppercase tracking-wider text-muted-foreground hover:text-foreground"
             onClick={() => removeItem(product.id)}
           >
             Remove

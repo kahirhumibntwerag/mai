@@ -164,7 +164,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             type="button"
             size="lg"
             className={cn(
-              "flex-1 h-14 uppercase tracking-wider",
+              "flex-1 min-h-12 py-4 text-base font-medium uppercase tracking-wider",
               addedToCart && "bg-accent text-accent-foreground hover:bg-accent/90"
             )}
             disabled={!selectedSize}
@@ -177,7 +177,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             variant="outline"
             size="lg"
             className={cn(
-              "h-14 px-8 uppercase tracking-wider gap-2",
+              "min-h-12 py-4 px-8 text-base uppercase tracking-wider gap-2",
               isInWishlist && "border-accent text-accent"
             )}
             onClick={() => toggleWishlist(product)}

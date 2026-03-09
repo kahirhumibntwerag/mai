@@ -50,19 +50,19 @@ export function Header() {
           <div className="flex items-center gap-1 md:gap-3">
             <Link
               href="/search"
-              className="flex size-9 items-center justify-center text-foreground hover:text-foreground/80 transition-colors"
+              className="flex size-11 min-w-11 min-h-11 md:size-9 md:min-w-0 md:min-h-0 items-center justify-center text-foreground hover:text-foreground/80 transition-colors -my-1 md:my-0"
               aria-label="Search"
             >
               <Search className="size-5" />
             </Link>
             <Link
               href="/wishlist"
-              className="relative flex size-9 items-center justify-center text-foreground hover:text-foreground/80 transition-colors"
+              className="relative flex size-11 min-w-11 min-h-11 md:size-9 md:min-w-0 md:min-h-0 items-center justify-center text-foreground hover:text-foreground/80 transition-colors -my-1 md:my-0"
               aria-label="Wishlist"
             >
               <Heart className="size-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-white">
+                <span className="absolute top-1 right-1 md:-top-0.5 md:-right-0.5 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-white">
                   {wishlistCount}
                 </span>
               )}
@@ -70,12 +70,12 @@ export function Header() {
             <CartSheet>
               <button
                 type="button"
-                className="relative flex size-9 items-center justify-center text-foreground hover:text-foreground/80 transition-colors"
+                className="relative flex size-11 min-w-11 min-h-11 md:size-9 md:min-w-0 md:min-h-0 items-center justify-center text-foreground hover:text-foreground/80 transition-colors -my-1 md:my-0"
                 aria-label="Cart"
               >
                 <ShoppingBag className="size-5" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-white">
+                  <span className="absolute top-1 right-1 md:-top-0.5 md:-right-0.5 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-white">
                     {itemCount}
                   </span>
                 )}
@@ -84,7 +84,7 @@ export function Header() {
 
             <Sheet>
               <SheetTrigger>
-                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Toggle menu">
+                <Button variant="ghost" size="icon" className="md:hidden size-11 min-w-11 min-h-11 md:size-8 md:min-w-0 md:min-h-0" aria-label="Toggle menu">
                   <Menu className="size-6" />
                 </Button>
               </SheetTrigger>
