@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@/components/ui/blur-image";
 import { Heart } from "lucide-react";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
@@ -22,7 +22,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <article className={cn("group relative flex flex-col", className)}>
       <Link href={`/products/${product.slug}`} className="block overflow-hidden aspect-[3/4] bg-muted">
-        <Image
+        <BlurImage
           src={product.images[0] ?? ""}
           alt={product.name}
           width={600}

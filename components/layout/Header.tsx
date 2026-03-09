@@ -103,7 +103,7 @@ export function Header() {
                   <Menu className="size-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[280px]">
+              <SheetContent side="left" className="w-[280px] p-4">
                 <SheetHeader>
                   <SheetTitle className="font-serif">Menu</SheetTitle>
                 </SheetHeader>

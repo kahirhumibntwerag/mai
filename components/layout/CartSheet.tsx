@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@/components/ui/blur-image";
 import { Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { formatPrice } from "@/lib/utils";
@@ -31,7 +31,7 @@ export function CartSheet({ children }: CartSheetProps) {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger render={children as React.ReactElement} />
-      <SheetContent side="right" className="flex w-full flex-col gap-0 p-6 sm:max-w-md">
+      <SheetContent side="right" className="flex w-full flex-col gap-0 p-8 sm:max-w-md sm:p-6">
         <SheetHeader>
           <SheetTitle className="font-serif text-xl">Your Cart</SheetTitle>
         </SheetHeader>
@@ -61,7 +61,7 @@ export function CartSheet({ children }: CartSheetProps) {
                       className="flex gap-4 py-4 border-b border-border last:border-0"
                     >
                       <div className="relative w-20 h-24 flex-shrink-0 bg-muted overflow-hidden">
-                        <Image
+                        <BlurImage
                           src={item.imageUrl}
                           alt={item.productName}
                           fill

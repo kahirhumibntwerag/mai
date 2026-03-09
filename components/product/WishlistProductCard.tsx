@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@/components/ui/blur-image";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useWishlistStore } from "@/store/wishlist-store";
@@ -35,7 +35,7 @@ export function WishlistProductCard({ product }: WishlistProductCardProps) {
   return (
     <article className="group relative flex flex-col">
       <Link href={`/products/${product.slug}`} className="block overflow-hidden aspect-[3/4] bg-muted">
-        <Image
+        <BlurImage
           src={product.images[0] ?? ""}
           alt={product.name}
           width={600}

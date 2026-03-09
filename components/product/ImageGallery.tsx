@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { BlurImage } from "@/components/ui/blur-image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +18,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
   return (
     <div className="space-y-4">
       <div className="relative aspect-[3/4] bg-muted overflow-hidden">
-        <Image
+        <BlurImage
           src={images[selectedIndex] ?? images[0] ?? ""}
           alt={`${alt} - Image ${selectedIndex + 1}`}
           fill
@@ -40,7 +40,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
               )}
               onClick={() => setSelectedIndex(i)}
             >
-              <Image
+              <BlurImage
                 src={src}
                 alt={`${alt} thumbnail ${i + 1}`}
                 fill

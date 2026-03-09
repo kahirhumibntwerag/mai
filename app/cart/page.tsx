@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@/components/ui/blur-image";
 import { Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { formatPrice } from "@/lib/utils";
@@ -44,7 +44,7 @@ export default function CartPage() {
           {items.map((item) => (
             <div key={item.id} className="flex gap-6 py-6 border-b border-border">
               <div className="relative w-24 h-32 md:w-32 md:h-40 flex-shrink-0 bg-muted overflow-hidden">
-                <Image
+                <BlurImage
                   src={item.imageUrl}
                   alt={item.productName}
                   fill

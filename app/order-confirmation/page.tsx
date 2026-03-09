@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { BlurImage } from "@/components/ui/blur-image";
 import { getOrder } from "@/store/order-store";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -80,7 +80,7 @@ function OrderConfirmationContent() {
                 {order.items.map((item, i) => (
                   <li key={i} className="flex gap-4 items-center">
                     <div className="relative w-12 h-16 flex-shrink-0 bg-muted overflow-hidden">
-                      <Image
+                      <BlurImage
                         src={item.imageUrl}
                         alt={item.productName}
                         fill

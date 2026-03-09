@@ -53,21 +53,6 @@ export const products: Product[] = [
     isNewArrival: false,
   },
   {
-    id: "4",
-    name: "Wrapped Jersey Dress",
-    slug: "wrapped-jersey-dress",
-    description: "Comfortable wrapped jersey dress with a flattering fit. Versatile for work or weekend.",
-    price: 165,
-    categorySlug: "dresses",
-    images: [
-      "https://images.unsplash.com/photo-1585487000115-33feeda2ac58?w=800",
-    ],
-    sizes: ["XS", "S", "M", "L", "XL"],
-    colors: [{ name: "Navy", hex: "#1e3a5f" }, { name: "Burgundy", hex: "#722f37" }],
-    isFeatured: false,
-    isNewArrival: true,
-  },
-  {
     id: "5",
     name: "Embroidered Cocktail Dress",
     slug: "embroidered-cocktail-dress",
@@ -143,21 +128,6 @@ export const products: Product[] = [
     isFeatured: false,
     isNewArrival: true,
   },
-  {
-    id: "10",
-    name: "Oversized Turtleneck",
-    slug: "oversized-turtleneck",
-    description: "Cozy oversized turtleneck in fine merino wool.",
-    price: 195,
-    categorySlug: "tops",
-    images: [
-      "https://images.unsplash.com/photo-1611902944995-fe2d1fb0240a?w=800",
-    ],
-    sizes: ["S", "M", "L"],
-    colors: [{ name: "Black", hex: "#000000" }, { name: "Camel", hex: "#C19A6B" }],
-    isFeatured: true,
-    isNewArrival: false,
-  },
   // Bottoms
   {
     id: "11",
@@ -175,21 +145,6 @@ export const products: Product[] = [
     isNewArrival: false,
   },
   {
-    id: "12",
-    name: "Pleated Midi Skirt",
-    slug: "pleated-midi-skirt",
-    description: "Elegant pleated midi skirt that moves beautifully.",
-    price: 165,
-    categorySlug: "bottoms",
-    images: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a00b67?w=800",
-    ],
-    sizes: ["XS", "S", "M", "L"],
-    colors: [{ name: "Black", hex: "#000000" }, { name: "Burgundy", hex: "#722f37" }],
-    isFeatured: false,
-    isNewArrival: true,
-  },
-  {
     id: "13",
     name: "Wide-Leg Palazzo Pants",
     slug: "wide-leg-palazzo-pants",
@@ -202,21 +157,6 @@ export const products: Product[] = [
     sizes: ["XS", "S", "M", "L"],
     colors: [{ name: "Ivory", hex: "#FFFFF0" }, { name: "Olive", hex: "#6B8E23" }],
     isFeatured: false,
-    isNewArrival: false,
-  },
-  {
-    id: "14",
-    name: "Tailored Wool Skirt",
-    slug: "tailored-wool-skirt",
-    description: "Classic tailored wool pencil skirt for the office.",
-    price: 175,
-    categorySlug: "bottoms",
-    images: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0b67?w=800",
-    ],
-    sizes: ["0", "2", "4", "6", "8", "10"],
-    colors: [{ name: "Charcoal", hex: "#36454F" }, { name: "Camel", hex: "#C19A6B" }],
-    isFeatured: true,
     isNewArrival: false,
   },
   // Outerwear
