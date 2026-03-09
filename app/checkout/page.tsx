@@ -51,7 +51,7 @@ export default function CheckoutPage() {
     setLoading(true);
 
     const orderId = `order-${Date.now()}`;
-    const orderNumber = `MAI-${1000 + Math.floor(Math.random() * 9000)}`;
+    const orderNumber = `CEL-${1000 + Math.floor(Math.random() * 9000)}`;
 
     const order = {
       id: orderId,

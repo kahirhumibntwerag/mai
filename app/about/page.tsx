@@ -7,7 +7,7 @@ export default function AboutPage() {
       <section className="relative h-[50vh] min-h-[400px] bg-muted">
         <Image
           src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920"
-          alt="MAI store interior"
+          alt="Celeste store interior"
           fill
           className="object-cover object-center"
           priority
@@ -24,7 +24,7 @@ export default function AboutPage() {
       <div className="container-luxury py-16 md:py-24">
         <div className="max-w-3xl mx-auto">
           <p className="text-lg text-[var(--foreground-muted)] leading-relaxed mb-8">
-            MAI was founded with a simple mission: to curate luxury women&apos;s fashion
+            Celeste was founded with a simple mission: to curate luxury women&apos;s fashion
             that embodies timeless elegance and modern sophistication. We believe
             in quality over quantity, and every piece in our collection is chosen
             for its craftsmanship, design, and ability to elevate your wardrobe.

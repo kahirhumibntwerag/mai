@@ -33,7 +33,7 @@ export function Header() {
       <div className="container-luxury">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
           <Link href="/" className="font-serif text-xl md:text-2xl font-medium tracking-wide">
-            MAI
+            Celeste
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">

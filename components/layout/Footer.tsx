@@ -39,7 +39,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="font-serif text-2xl font-medium tracking-wide">
-              MAI
+              Celeste
             </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Luxury women&apos;s fashion. Curated pieces for the modern woman.
@@ -116,7 +116,7 @@ export function Footer() {
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} MAI. All rights reserved.
+            &copy; {new Date().getFullYear()} Celeste. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link href="#" className="text-xs text-muted-foreground hover:text-foreground">

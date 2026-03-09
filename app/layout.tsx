@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MAI | Luxury Women's Fashion",
+  title: "Celeste | Luxury Women's Fashion",
   description: "Curated luxury women's fashion. Elegant dresses, tops, outerwear, and accessories for the modern woman.",
 };
 
