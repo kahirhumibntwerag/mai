@@ -17,21 +17,21 @@ const supportLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border mt-24">
+    <footer className="bg-black text-white mt-24">
       <div className="container-luxury py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           {/* Brand + tagline + social */}
           <div>
-            <Link href="/" className="font-semibold text-xl uppercase tracking-wider text-foreground">
+            <Link href="/" className="font-semibold text-xl uppercase tracking-wider text-white">
               Celeste
             </Link>
-            <p className="mt-4 text-sm text-muted-foreground max-w-sm">
+            <p className="mt-4 text-sm text-gray-400 max-w-sm">
               The fashion app that makes you look your best. Swift and reliable delivery, get more and more updates.
             </p>
             <div className="mt-6 flex gap-4">
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
                 aria-label="Pinterest"
               >
                 <svg className="size-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -40,7 +40,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
                 aria-label="Twitter"
               >
                 <svg className="size-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -49,7 +49,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="size-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -61,7 +61,7 @@ export function Footer() {
 
           {/* Shop */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
               Shop
             </h3>
             <ul className="space-y-3">
@@ -69,7 +69,7 @@ export function Footer() {
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -80,7 +80,7 @@ export function Footer() {
 
           {/* Support */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
               Support
             </h3>
             <ul className="space-y-3">
@@ -88,7 +88,7 @@ export function Footer() {
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -98,8 +98,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border">
-          <p className="text-xs text-muted-foreground text-center md:text-left">
+        <div className="mt-12 pt-8 border-t border-white/20">
+          <p className="text-xs text-gray-400 text-center md:text-left">
             &copy; {new Date().getFullYear()} Celeste. All rights reserved.
           </p>
         </div>
