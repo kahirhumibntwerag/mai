@@ -1,65 +1,127 @@
+import Link from "next/link";
 import Image from "next/image";
+import { ProductGrid } from "@/components/product/ProductGrid";
+import { products } from "@/data/products";
+import { categories } from "@/data/categories";
+
+const newArrivals = products.filter((p) => p.isNewArrival);
+const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 8);
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div>
+      {/* Hero */}
+      <section className="relative h-[70vh] min-h-[500px] md:h-[80vh] bg-[var(--muted-bg)]">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920"
+          alt="Luxury fashion editorial"
+          fill
+          className="object-cover object-center"
           priority
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="container-luxury text-center text-white">
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-medium tracking-wide mb-4 md:mb-6">
+              Curated Elegance
+            </h1>
+            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 md:mb-12 opacity-90">
+              Discover luxury women&apos;s fashion. Timeless pieces for the modern woman.
+            </p>
+            <Link
+              href="/collections/dresses"
+              className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider bg-white text-foreground hover:bg-[var(--muted-bg)] transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Shop Now
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* New Arrivals */}
+      <section className="py-16 md:py-24">
+        <div className="container-luxury">
+          <div className="flex items-end justify-between mb-12">
+            <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-wide">
+              New Arrivals
+            </h2>
+            <Link
+              href="/collections/dresses"
+              className="text-sm font-medium uppercase tracking-wider text-foreground/70 hover:text-foreground transition-colors border-b border-transparent hover:border-foreground pb-1"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              View All
+            </Link>
+          </div>
+          <ProductGrid products={newArrivals} columns={4} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Featured Collections */}
+      <section className="py-16 md:py-24 bg-[var(--muted-bg)]">
+        <div className="container-luxury">
+          <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-12 text-center">
+            Featured Collection
+          </h2>
+          <ProductGrid products={featuredProducts} columns={4} />
         </div>
-      </main>
+      </section>
+
+      {/* Shop by Category */}
+      <section className="py-16 md:py-24">
+        <div className="container-luxury">
+          <h2 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-12 text-center">
+            Shop by Category
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                href={`/collections/${category.slug}`}
+                className="group relative aspect-[4/5] overflow-hidden bg-[var(--muted-bg)]"
+              >
+                <Image
+                  src={category.imageUrl}
+                  alt={category.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                <div className="absolute inset-0 flex items-end p-6">
+                  <h3 className="font-serif text-2xl font-medium text-white tracking-wide">
+                    {category.name}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Editorial Banner */}
+      <section className="relative h-[50vh] min-h-[400px] bg-[var(--muted-bg)]">
+        <Image
+          src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920"
+          alt="Spring collection editorial"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div className="container-luxury text-center text-white">
+            <h2 className="font-serif text-3xl md:text-5xl font-medium tracking-wide mb-4">
+              Spring 2025
+            </h2>
+            <p className="text-lg md:text-xl max-w-xl mx-auto mb-8 opacity-90">
+              Discover our latest collection. Timeless elegance, reimagined.
+            </p>
+            <Link
+              href="/collections/tops"
+              className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider border border-white text-white hover:bg-white hover:text-foreground transition-colors"
+            >
+              Explore Collection
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
