@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { Heart, Minus, Plus } from "lucide-react";
 import { ImageGallery } from "./ImageGallery";
-import { ProductCard } from "./ProductCard";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface ProductDetailProps {
@@ -53,7 +54,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
       <div>
         {product.isNewArrival && (
-          <span className="inline-block mb-4 text-xs font-medium uppercase tracking-wider text-[var(--accent)]">
+          <span className="inline-block mb-4 text-xs font-medium uppercase tracking-wider text-accent">
             New Arrival
           </span>
         )}
@@ -63,40 +64,37 @@ export function ProductDetail({ product }: ProductDetailProps) {
         <div className="flex items-center gap-3 mb-6">
           <span className="text-xl font-medium">{formatPrice(product.price)}</span>
           {product.compareAtPrice && (
-            <span className="text-base text-[var(--foreground-muted)] line-through">
+            <span className="text-base text-muted-foreground line-through">
               {formatPrice(product.compareAtPrice)}
             </span>
           )}
         </div>
-        <p className="text-[var(--foreground-muted)] mb-8 leading-relaxed max-w-xl">
+        <p className="text-muted-foreground mb-8 leading-relaxed max-w-xl">
           {product.description}
         </p>
 
-        {/* Size */}
         <div className="mb-8">
           <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
             Size {selectedSize ? `: ${selectedSize}` : ""}
           </h3>
           <div className="flex flex-wrap gap-2">
             {product.sizes.map((size) => (
-              <button
+              <Button
                 key={size}
                 type="button"
-                onClick={() => setSelectedSize(size)}
+                variant={selectedSize === size ? "default" : "outline"}
                 className={cn(
-                  "h-12 min-w-[48px] px-4 border text-sm font-medium transition-colors",
-                  selectedSize === size
-                    ? "border-foreground bg-foreground text-white"
-                    : "border-[var(--border)] hover:border-foreground/50"
+                  "h-12 min-w-[48px] px-4",
+                  selectedSize === size && "bg-primary text-primary-foreground"
                 )}
+                onClick={() => setSelectedSize(size)}
               >
                 {size}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
 
-        {/* Color */}
         {product.colors.length > 0 && (
           <div className="mb-8">
             <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
@@ -111,8 +109,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   className={cn(
                     "w-10 h-10 rounded-full border-2 transition-all flex items-center justify-center",
                     selectedColor === color.name
-                      ? "border-foreground scale-110"
-                      : "border-[var(--border)] hover:border-foreground/50"
+                      ? "border-primary scale-110"
+                      : "border-border hover:border-foreground/50"
                   )}
                   style={{ backgroundColor: color.hex }}
                   title={color.name}
@@ -120,17 +118,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 >
                   {selectedColor === color.name && (
                     <svg
-                      className="w-5 h-5 text-white drop-shadow"
+                      className="size-5 text-white drop-shadow"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   )}
                 </button>
@@ -139,69 +132,63 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </div>
         )}
 
-        {/* Quantity */}
         <div className="mb-8">
           <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
             Quantity
           </h3>
           <div className="flex items-center gap-2">
-            <button
+            <Button
               type="button"
+              variant="outline"
+              size="icon"
+              className="size-12 text-lg"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="w-12 h-12 border border-[var(--border)] flex items-center justify-center text-lg hover:border-foreground/50 transition-colors"
             >
-              −
-            </button>
+              <Minus className="size-4" />
+            </Button>
             <span className="w-12 text-center font-medium">{quantity}</span>
-            <button
+            <Button
               type="button"
+              variant="outline"
+              size="icon"
+              className="size-12 text-lg"
               onClick={() => setQuantity((q) => q + 1)}
-              className="w-12 h-12 border border-[var(--border)] flex items-center justify-center text-lg hover:border-foreground/50 transition-colors"
             >
-              +
-            </button>
+              <Plus className="size-4" />
+            </Button>
           </div>
         </div>
 
-        {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <button
+          <Button
             type="button"
-            onClick={handleAddToCart}
-            disabled={!selectedSize}
+            size="lg"
             className={cn(
-              "flex-1 h-14 px-8 text-sm font-medium uppercase tracking-wider transition-colors",
-              addedToCart
-                ? "bg-[var(--accent)] text-white"
-                : "bg-foreground text-white hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              "flex-1 h-14 uppercase tracking-wider",
+              addedToCart && "bg-accent text-accent-foreground hover:bg-accent/90"
             )}
+            disabled={!selectedSize}
+            onClick={handleAddToCart}
           >
             {addedToCart ? "Added to Cart" : "Add to Cart"}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
-            onClick={() => toggleWishlist(product)}
+            variant="outline"
+            size="lg"
             className={cn(
-              "h-14 px-8 border border-[var(--border)] text-sm font-medium uppercase tracking-wider transition-colors flex items-center justify-center gap-2",
-              isInWishlist
-                ? "border-[var(--accent)] text-[var(--accent)]"
-                : "hover:border-foreground/50"
+              "h-14 px-8 uppercase tracking-wider gap-2",
+              isInWishlist && "border-accent text-accent"
             )}
+            onClick={() => toggleWishlist(product)}
           >
-            <svg
-              className={cn("w-5 h-5", isInWishlist ? "fill-current" : "fill-none stroke-current")}
+            <Heart
+              className={cn("size-5", isInWishlist ? "fill-current" : "fill-none")}
               stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
+              strokeWidth={1.5}
+            />
             {isInWishlist ? "Saved" : "Wishlist"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

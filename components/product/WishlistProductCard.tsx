@@ -6,7 +6,7 @@ import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { useCartStore } from "@/store/cart-store";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface WishlistProductCardProps {
   product: Product;
@@ -34,7 +34,7 @@ export function WishlistProductCard({ product }: WishlistProductCardProps) {
 
   return (
     <article className="group relative flex flex-col">
-      <Link href={`/products/${product.slug}`} className="block overflow-hidden aspect-[3/4] bg-[var(--muted-bg)]">
+      <Link href={`/products/${product.slug}`} className="block overflow-hidden aspect-[3/4] bg-muted">
         <Image
           src={product.images[0] ?? ""}
           alt={product.name}
@@ -46,26 +46,28 @@ export function WishlistProductCard({ product }: WishlistProductCardProps) {
 
       <div className="mt-4 flex flex-col gap-2">
         <Link href={`/products/${product.slug}`}>
-          <h3 className="font-serif text-lg font-medium text-foreground group-hover:text-[var(--accent)] transition-colors">
+          <h3 className="font-serif text-lg font-medium text-foreground group-hover:text-accent transition-colors">
             {product.name}
           </h3>
         </Link>
         <p className="text-base font-medium">{formatPrice(product.price)}</p>
         <div className="flex gap-2 mt-2">
-          <button
+          <Button
             type="button"
+            variant="outline"
+            className="flex-1 uppercase tracking-wider"
             onClick={handleMoveToCart}
-            className="flex-1 py-2 text-sm font-medium uppercase tracking-wider border border-foreground text-foreground hover:bg-foreground hover:text-white transition-colors"
           >
             Add to Cart
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="outline"
+            className="uppercase tracking-wider text-muted-foreground hover:text-foreground"
             onClick={() => removeItem(product.id)}
-            className="py-2 px-4 text-sm font-medium uppercase tracking-wider border border-[var(--border)] text-[var(--foreground-muted)] hover:border-foreground hover:text-foreground transition-colors"
           >
             Remove
-          </button>
+          </Button>
         </div>
       </div>
     </article>

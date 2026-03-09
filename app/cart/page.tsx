@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { formatPrice } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, getSubtotal } = useCartStore();
@@ -19,15 +22,12 @@ export default function CartPage() {
           Your Cart
         </h1>
         <div className="py-24 text-center">
-          <p className="text-[var(--foreground-muted)] mb-8">
+          <p className="text-muted-foreground mb-8">
             Your cart is empty.
           </p>
-          <Link
-            href="/collections/dresses"
-            className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-          >
+          <Button render={<Link href="/collections/dresses" />} nativeButton={false} className="uppercase tracking-wider">
             Continue Shopping
-          </Link>
+          </Button>
         </div>
       </div>
     );
@@ -42,11 +42,8 @@ export default function CartPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-6">
           {items.map((item) => (
-            <div
-              key={item.id}
-              className="flex gap-6 py-6 border-b border-[var(--border)]"
-            >
-              <div className="relative w-24 h-32 md:w-32 md:h-40 flex-shrink-0 bg-[var(--muted-bg)] overflow-hidden">
+            <div key={item.id} className="flex gap-6 py-6 border-b border-border">
+              <div className="relative w-24 h-32 md:w-32 md:h-40 flex-shrink-0 bg-muted overflow-hidden">
                 <Image
                   src={item.imageUrl}
                   alt={item.productName}
@@ -58,41 +55,46 @@ export default function CartPage() {
               <div className="flex-1 min-w-0">
                 <Link
                   href={`/products/${item.productSlug}`}
-                  className="font-serif text-lg font-medium hover:text-[var(--accent)] transition-colors"
+                  className="font-serif text-lg font-medium hover:text-accent transition-colors"
                 >
                   {item.productName}
                 </Link>
-                <p className="text-sm text-[var(--foreground-muted)] mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   Size: {item.size} | Color: {item.color}
                 </p>
                 <p className="mt-2 font-medium">{formatPrice(item.price)}</p>
                 <div className="mt-4 flex items-center gap-4">
-                  <div className="flex items-center border border-[var(--border)]">
-                    <button
+                  <div className="flex items-center border border-border">
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="size-10 rounded-none"
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="w-10 h-10 flex items-center justify-center text-lg hover:bg-[var(--muted-bg)] transition-colors"
                     >
-                      −
-                    </button>
+                      <Minus className="size-4" />
+                    </Button>
                     <span className="w-12 text-center text-sm font-medium">
                       {item.quantity}
                     </span>
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="size-10 rounded-none"
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-10 h-10 flex items-center justify-center text-lg hover:bg-[var(--muted-bg)] transition-colors"
                     >
-                      +
-                    </button>
+                      <Plus className="size-4" />
+                    </Button>
                   </div>
-                  <button
+                  <Button
                     type="button"
+                    variant="link"
+                    className="text-sm text-muted-foreground hover:text-foreground h-auto p-0"
                     onClick={() => removeItem(item.id)}
-                    className="text-sm text-[var(--foreground-muted)] hover:text-foreground underline transition-colors"
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </div>
               <div className="text-right font-medium">
@@ -103,43 +105,36 @@ export default function CartPage() {
         </div>
 
         <div>
-          <div className="sticky top-24 p-6 border border-[var(--border)] bg-[var(--muted-bg)]">
+          <div className="sticky top-24 p-6 border border-border bg-muted">
             <h2 className="font-serif text-xl font-medium mb-6">
               Order Summary
             </h2>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-[var(--foreground-muted)]">Subtotal</span>
+                <span className="text-muted-foreground">Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[var(--foreground-muted)]">Shipping</span>
+                <span className="text-muted-foreground">Shipping</span>
                 <span>
-                  {shippingEstimate === 0
-                    ? "Free"
-                    : formatPrice(shippingEstimate)}
+                  {shippingEstimate === 0 ? "Free" : formatPrice(shippingEstimate)}
                 </span>
               </div>
-              <div className="flex justify-between pt-3 border-t border-[var(--border)] font-medium text-base">
+              <Separator />
+              <div className="flex justify-between font-medium text-base pt-2">
                 <span>Total</span>
                 <span>{formatPrice(total)}</span>
               </div>
             </div>
-            <p className="mt-4 text-xs text-[var(--foreground-muted)]">
+            <p className="mt-4 text-xs text-muted-foreground">
               Free shipping on orders over $200
             </p>
-            <Link
-              href="/checkout"
-              className="mt-6 block w-full py-4 text-center text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-            >
+            <Button render={<Link href="/checkout" />} nativeButton={false} className="mt-6 w-full uppercase tracking-wider">
               Proceed to Checkout
-            </Link>
-            <Link
-              href="/collections/dresses"
-              className="mt-4 block w-full py-3 text-center text-sm font-medium uppercase tracking-wider border border-[var(--border)] hover:border-foreground/50 transition-colors"
-            >
+            </Button>
+            <Button render={<Link href="/collections/dresses" />} nativeButton={false} variant="outline" className="mt-4 w-full uppercase tracking-wider">
               Continue Shopping
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

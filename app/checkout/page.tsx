@@ -7,6 +7,18 @@ import Image from "next/image";
 import { useCartStore } from "@/store/cart-store";
 import { formatPrice } from "@/lib/utils";
 import { saveOrder } from "@/store/order-store";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -25,8 +37,12 @@ export default function CheckoutPage() {
   const shippingCost = subtotal >= 200 ? 0 : 15;
   const total = subtotal + shippingCost;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleCountryChange = (value: string | null) => {
+    if (value) setForm((prev) => ({ ...prev, shippingCountry: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,15 +87,12 @@ export default function CheckoutPage() {
         <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-8">
           Checkout
         </h1>
-        <p className="text-[var(--foreground-muted)] mb-8">
+        <p className="text-muted-foreground mb-8">
           Your cart is empty. Add items to checkout.
         </p>
-        <Link
-          href="/collections/dresses"
-          className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-        >
+        <Button render={<Link href="/collections/dresses" />} nativeButton={false} className="uppercase tracking-wider">
           Continue Shopping
-        </Link>
+        </Button>
       </div>
     );
   }
@@ -99,190 +112,162 @@ export default function CheckoutPage() {
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label
-                    htmlFor="customerName"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Full Name
-                  </label>
-                  <input
+                  <Label htmlFor="customerName">Full Name</Label>
+                  <Input
                     id="customerName"
                     name="customerName"
                     type="text"
                     required
                     value={form.customerName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                    className="mt-2 h-11"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="customerEmail"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Email
-                  </label>
-                  <input
+                  <Label htmlFor="customerEmail">Email</Label>
+                  <Input
                     id="customerEmail"
                     name="customerEmail"
                     type="email"
                     required
                     value={form.customerEmail}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                    className="mt-2 h-11"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="shippingAddress"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Address
-                  </label>
-                  <input
+                  <Label htmlFor="shippingAddress">Address</Label>
+                  <Input
                     id="shippingAddress"
                     name="shippingAddress"
                     type="text"
                     required
                     value={form.shippingAddress}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                    className="mt-2 h-11"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label
-                      htmlFor="shippingCity"
-                      className="block text-sm font-medium mb-2"
-                    >
-                      City
-                    </label>
-                    <input
+                    <Label htmlFor="shippingCity">City</Label>
+                    <Input
                       id="shippingCity"
                       name="shippingCity"
                       type="text"
                       required
                       value={form.shippingCity}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                      className="mt-2 h-11"
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="shippingZip"
-                      className="block text-sm font-medium mb-2"
-                    >
-                      ZIP Code
-                    </label>
-                    <input
+                    <Label htmlFor="shippingZip">ZIP Code</Label>
+                    <Input
                       id="shippingZip"
                       name="shippingZip"
                       type="text"
                       required
                       value={form.shippingZip}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                      className="mt-2 h-11"
                     />
                   </div>
                 </div>
                 <div>
-                  <label
-                    htmlFor="shippingCountry"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Country
-                  </label>
-                  <select
-                    id="shippingCountry"
-                    name="shippingCountry"
-                    value={form.shippingCountry}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
-                  >
-                    <option value="United States">United States</option>
-                    <option value="Canada">Canada</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                  </select>
+                  <Label htmlFor="shippingCountry">Country</Label>
+                  <Select value={form.shippingCountry} onValueChange={handleCountryChange}>
+                    <SelectTrigger className="mt-2 h-11 w-full">
+                      <SelectValue placeholder="Select country" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="United States">United States</SelectItem>
+                      <SelectItem value="Canada">Canada</SelectItem>
+                      <SelectItem value="United Kingdom">United Kingdom</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </section>
 
-            <section>
-              <h2 className="font-serif text-xl font-medium mb-6">
-                Payment
-              </h2>
-              <div className="p-6 border border-[var(--border)] bg-[var(--muted-bg)]">
-                <p className="text-sm text-[var(--foreground-muted)]">
+            <Card className="border-border bg-muted">
+              <CardHeader>
+                <h2 className="font-serif text-xl font-medium">
+                  Payment
+                </h2>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
                   This is a mock checkout. No payment is processed. Click &quot;Place Order&quot; to complete.
                 </p>
-              </div>
-            </section>
+              </CardContent>
+            </Card>
           </div>
 
           <div>
-            <div className="sticky top-24 p-6 border border-[var(--border)] bg-[var(--muted-bg)]">
-              <h2 className="font-serif text-xl font-medium mb-6">
-                Order Summary
-              </h2>
-              <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex gap-4 items-center"
-                  >
-                    <div className="relative w-16 h-20 flex-shrink-0 bg-white overflow-hidden">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.productName}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        {item.productName}
+            <Card className="sticky top-24 border-border bg-muted">
+              <CardHeader>
+                <h2 className="font-serif text-xl font-medium">
+                  Order Summary
+                </h2>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-4 max-h-64 overflow-y-auto">
+                  {items.map((item) => (
+                    <div key={item.id} className="flex gap-4 items-center">
+                      <div className="relative w-16 h-20 flex-shrink-0 bg-background overflow-hidden">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.productName}
+                          fill
+                          className="object-cover"
+                          sizes="64px"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{item.productName}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {item.size} / {item.color} × {item.quantity}
+                        </p>
+                      </div>
+                      <p className="text-sm font-medium">
+                        {formatPrice(item.price * item.quantity)}
                       </p>
-                      <p className="text-xs text-[var(--foreground-muted)]">
-                        {item.size} / {item.color} × {item.quantity}
-                      </p>
                     </div>
-                    <p className="text-sm font-medium">
-                      {formatPrice(item.price * item.quantity)}
-                    </p>
+                  ))}
+                </div>
+                <Separator />
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal</span>
+                    <span>{formatPrice(subtotal)}</span>
                   </div>
-                ))}
-              </div>
-              <div className="space-y-2 text-sm pt-4 border-t border-[var(--border)]">
-                <div className="flex justify-between">
-                  <span className="text-[var(--foreground-muted)]">Subtotal</span>
-                  <span>{formatPrice(subtotal)}</span>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span>{shippingCost === 0 ? "Free" : formatPrice(shippingCost)}</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between font-medium text-base">
+                    <span>Total</span>
+                    <span>{formatPrice(total)}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[var(--foreground-muted)]">Shipping</span>
-                  <span>
-                    {shippingCost === 0 ? "Free" : formatPrice(shippingCost)}
-                  </span>
-                </div>
-                <div className="flex justify-between font-medium text-base pt-2">
-                  <span>Total</span>
-                  <span>{formatPrice(total)}</span>
-                </div>
-              </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="mt-6 w-full py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {loading ? "Processing..." : "Place Order"}
-              </button>
-              <Link
-                href="/cart"
-                className="mt-4 block w-full py-3 text-center text-sm font-medium uppercase tracking-wider border border-[var(--border)] hover:border-foreground/50 transition-colors"
-              >
-                Back to Cart
-              </Link>
-            </div>
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-6 w-full uppercase tracking-wider"
+                >
+                  {loading ? "Processing..." : "Place Order"}
+                </Button>
+                <Button
+                  render={<Link href="/cart" />}
+                  nativeButton={false}
+                  variant="outline"
+                  className="mt-4 w-full uppercase tracking-wider"
+                >
+                  Back to Cart
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </form>

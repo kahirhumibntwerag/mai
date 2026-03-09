@@ -6,6 +6,8 @@ import { useMemo, useState, useEffect } from "react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { products } from "@/data/products";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -42,46 +44,40 @@ function SearchContent() {
 
       <form onSubmit={handleSubmit} className="mb-12 max-w-xl">
         <div className="flex gap-2">
-          <input
+          <Input
             type="search"
             name="q"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search products..."
-            className="flex-1 px-4 py-3 text-base border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+            className="flex-1 h-11"
           />
-          <button
-            type="submit"
-            className="px-6 py-3 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-          >
+          <Button type="submit" className="uppercase tracking-wider">
             Search
-          </button>
+          </Button>
         </div>
       </form>
 
       {query && (
-        <p className="text-[var(--foreground-muted)] mb-8">
+        <p className="text-muted-foreground mb-8">
           {results.length} {results.length === 1 ? "result" : "results"} for &quot;{query}&quot;
         </p>
       )}
 
       {!query.trim() ? (
-        <p className="py-16 text-center text-[var(--foreground-muted)]">
+        <p className="py-16 text-center text-muted-foreground">
           Enter a search term to find products.
         </p>
       ) : results.length > 0 ? (
         <ProductGrid products={results} columns={4} />
       ) : (
         <div className="py-16 text-center">
-          <p className="text-[var(--foreground-muted)] mb-6">
+          <p className="text-muted-foreground mb-6">
             No products found for &quot;{query}&quot;. Try a different search term.
           </p>
-          <Link
-            href="/collections/dresses"
-            className="inline-block px-6 py-3 text-sm font-medium uppercase tracking-wider border border-foreground text-foreground hover:bg-foreground hover:text-white transition-colors"
-          >
+          <Button render={<Link href="/collections/dresses" />} nativeButton={false} variant="outline" className="uppercase tracking-wider">
             Browse All Products
-          </Link>
+          </Button>
         </div>
       )}
     </div>
@@ -96,7 +92,7 @@ export default function SearchPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-8">
             Search
           </h1>
-          <p className="text-[var(--foreground-muted)]">Loading...</p>
+          <p className="text-muted-foreground">Loading...</p>
         </div>
       }
     >

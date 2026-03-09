@@ -4,7 +4,7 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-[50vh] min-h-[400px] bg-[var(--muted-bg)]">
+      <section className="relative h-[50vh] min-h-[400px] bg-muted">
         <Image
           src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920"
           alt="MAI store interior"
@@ -36,17 +36,17 @@ export default function AboutPage() {
             can shop with confidence knowing your purchase supports a better
             fashion industry.
           </p>
-          <p className="text-lg text-[var(--foreground-muted)] leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             Thank you for being part of our story. We hope you find pieces here
             that inspire you, empower you, and become treasured parts of your
             own narrative.
           </p>
 
-          <div className="mt-16 pt-16 border-t border-[var(--border)]">
+          <div className="mt-16 pt-16 border-t border-border">
             <h2 className="font-serif text-2xl font-medium tracking-wide mb-8">
               Our Values
             </h2>
-            <ul className="space-y-6 text-[var(--foreground-muted)]">
+            <ul className="space-y-6 text-muted-foreground">
               <li>
                 <span className="font-medium text-foreground">Quality</span> —
                 We select only the finest materials and construction for every

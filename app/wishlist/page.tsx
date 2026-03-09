@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { WishlistProductCard } from "@/components/product/WishlistProductCard";
+import { Button } from "@/components/ui/button";
 
 const columnClasses = "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8";
 
@@ -16,15 +17,12 @@ export default function WishlistPage() {
           Your Wishlist
         </h1>
         <div className="py-24 text-center">
-          <p className="text-[var(--foreground-muted)] mb-8">
+          <p className="text-muted-foreground mb-8">
             Your wishlist is empty. Save items you love for later.
           </p>
-          <Link
-            href="/collections/dresses"
-            className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-          >
+          <Button render={<Link href="/collections/dresses" />} nativeButton={false} className="uppercase tracking-wider">
             Browse Products
-          </Link>
+          </Button>
         </div>
       </div>
     );
@@ -37,7 +35,7 @@ export default function WishlistPage() {
       </h1>
 
       <div className="mb-8">
-        <p className="text-[var(--foreground-muted)]">
+        <p className="text-muted-foreground">
           {items.length} {items.length === 1 ? "item" : "items"} saved
         </p>
       </div>
@@ -48,16 +46,13 @@ export default function WishlistPage() {
         ))}
       </div>
 
-      <div className="mt-12 p-6 bg-[var(--muted-bg)] text-center">
-        <p className="text-sm text-[var(--foreground-muted)] mb-4">
+      <div className="mt-12 p-6 bg-muted text-center">
+        <p className="text-sm text-muted-foreground mb-4">
           Add items to your cart or remove them from your wishlist.
         </p>
-        <Link
-          href="/collections/dresses"
-          className="text-sm font-medium uppercase tracking-wider text-foreground hover:text-[var(--accent)] transition-colors"
-        >
+        <Button render={<Link href="/collections/dresses" />} nativeButton={false} variant="link" className="text-accent hover:text-accent/90">
           Continue Shopping
-        </Link>
+        </Button>
       </div>
     </div>
   );

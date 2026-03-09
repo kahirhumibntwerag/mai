@@ -1,9 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Search, Heart, ShoppingBag, Menu } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { CartSheet } from "@/components/layout/CartSheet";
 
 const navLinks = [
   { href: "/collections/dresses", label: "Dresses" },
@@ -15,21 +25,17 @@ const navLinks = [
 ];
 
 export function Header() {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const itemCount = useCartStore((s) => s.getItemCount());
   const wishlistCount = useWishlistStore((s) => s.items.length);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-[var(--border)]">
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
       <div className="container-luxury">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
-          {/* Logo */}
           <Link href="/" className="font-serif text-xl md:text-2xl font-medium tracking-wide">
             MAI
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
@@ -54,99 +60,80 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Right actions */}
-          <div className="flex items-center gap-4 md:gap-6">
+          <div className="flex items-center gap-2 md:gap-4">
             <Link
               href="/search"
-              className="p-2 -m-2 text-foreground/70 hover:text-foreground transition-colors"
+              className="flex size-8 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Search"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+              <Search className="size-5" />
             </Link>
 
             <Link
               href="/wishlist"
-              className="relative p-2 -m-2 text-foreground/70 hover:text-foreground transition-colors"
+              className="relative flex size-8 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Wishlist"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
+              <Heart className="size-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-medium text-white">
+                <Badge className="absolute -top-0.5 -right-0.5 size-4 min-w-4 p-0 rounded-full flex items-center justify-center text-[10px] bg-accent text-accent-foreground border-0">
                   {wishlistCount}
-                </span>
+                </Badge>
               )}
             </Link>
 
-            <Link
-              href="/cart"
-              className="relative p-2 -m-2 text-foreground/70 hover:text-foreground transition-colors"
-              aria-label="Cart"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-medium text-white">
-                  {itemCount}
-                </span>
-              )}
-            </Link>
+            <CartSheet>
+              <button
+                type="button"
+                className="relative flex size-8 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Cart"
+              >
+                <ShoppingBag className="size-5" />
+                {itemCount > 0 && (
+                  <Badge className="absolute -top-0.5 -right-0.5 size-4 min-w-4 p-0 rounded-full flex items-center justify-center text-[10px] bg-accent text-accent-foreground border-0">
+                    {itemCount}
+                  </Badge>
+                )}
+              </button>
+            </CartSheet>
 
-            {/* Mobile menu button */}
-            <button
-              type="button"
-              className="md:hidden p-2 -m-2 text-foreground/70 hover:text-foreground"
-              aria-label="Toggle menu"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
+            <Sheet>
+              <SheetTrigger>
+                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Toggle menu">
+                  <Menu className="size-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px]">
+                <SheetHeader>
+                  <SheetTitle className="font-serif">Menu</SheetTitle>
+                </SheetHeader>
+                <nav className="flex flex-col gap-4 pt-6">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/about"
+                    className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
+                  >
+                    About
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
+                  >
+                    Contact
+                  </Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Mobile nav */}
-        {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-[var(--border)]">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/about"
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-            </div>
-          </nav>
-        )}
       </div>
     </header>
   );

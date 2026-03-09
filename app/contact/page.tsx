@@ -2,6 +2,18 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,10 +24,12 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubjectChange = (value: string | null) => {
+    if (value) setForm((prev) => ({ ...prev, subject: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,8 +40,7 @@ export default function ContactPage() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="relative h-[40vh] min-h-[300px] bg-[var(--muted-bg)]">
+      <section className="relative h-[40vh] min-h-[300px] bg-muted">
         <Image
           src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1920"
           alt="Customer service"
@@ -49,21 +62,18 @@ export default function ContactPage() {
             <h2 className="font-serif text-2xl font-medium tracking-wide mb-6">
               Get in Touch
             </h2>
-            <p className="text-[var(--foreground-muted)] mb-8 max-w-md">
+            <p className="text-muted-foreground mb-8 max-w-md">
               Have a question, feedback, or need assistance? We&apos;d love to hear
               from you. Fill out the form and our team will respond within
               24–48 hours.
             </p>
 
-            <div className="space-y-6 text-[var(--foreground-muted)]">
+            <div className="space-y-6 text-muted-foreground">
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">
                   Email
                 </h3>
-                <a
-                  href="mailto:hello@mai.com"
-                  className="hover:text-foreground transition-colors"
-                >
+                <a href="mailto:hello@mai.com" className="hover:text-foreground transition-colors">
                   hello@mai.com
                 </a>
               </div>
@@ -71,10 +81,7 @@ export default function ContactPage() {
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">
                   Phone
                 </h3>
-                <a
-                  href="tel:+15551234567"
-                  className="hover:text-foreground transition-colors"
-                >
+                <a href="tel:+15551234567" className="hover:text-foreground transition-colors">
                   +1 (555) 123-4567
                 </a>
               </div>
@@ -82,21 +89,15 @@ export default function ContactPage() {
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">
                   Store Address
                 </h3>
-                <p>
-                  123 Luxury Avenue
-                  <br />
-                  New York, NY 10001
-                </p>
+                <p>123 Luxury Avenue<br />New York, NY 10001</p>
               </div>
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-2">
                   Hours
                 </h3>
                 <p>
-                  Monday – Friday: 10am – 8pm
-                  <br />
-                  Saturday: 11am – 7pm
-                  <br />
+                  Monday – Friday: 10am – 8pm<br />
+                  Saturday: 11am – 7pm<br />
                   Sunday: 12pm – 6pm
                 </p>
               </div>
@@ -105,96 +106,73 @@ export default function ContactPage() {
 
           <div>
             {submitted ? (
-              <div className="p-8 border border-[var(--border)] bg-[var(--muted-bg)]">
-                <h3 className="font-serif text-xl font-medium mb-4">
-                  Thank You
-                </h3>
-                <p className="text-[var(--foreground-muted)]">
-                  Your message has been sent. We&apos;ll get back to you within
-                  24–48 hours.
-                </p>
-              </div>
+              <Card className="border-border bg-muted">
+                <CardHeader>
+                  <h3 className="font-serif text-xl font-medium">Thank You</h3>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Your message has been sent. We&apos;ll get back to you within
+                    24–48 hours.
+                  </p>
+                </CardContent>
+              </Card>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Name
-                  </label>
-                  <input
+                  <Label htmlFor="name">Name</Label>
+                  <Input
                     id="name"
                     name="name"
                     type="text"
                     required
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                    className="mt-2 h-11"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Email
-                  </label>
-                  <input
+                  <Label htmlFor="email">Email</Label>
+                  <Input
                     id="email"
                     name="email"
                     type="email"
                     required
                     value={form.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                    className="mt-2 h-11"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Subject
-                  </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={form.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
-                  >
-                    <option value="">Select a subject</option>
-                    <option value="order">Order inquiry</option>
-                    <option value="product">Product question</option>
-                    <option value="returns">Returns & exchanges</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <Label htmlFor="subject">Subject</Label>
+                  <Select value={form.subject} onValueChange={handleSubjectChange}>
+                    <SelectTrigger className="mt-2 h-11 w-full">
+                      <SelectValue placeholder="Select a subject" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="order">Order inquiry</SelectItem>
+                      <SelectItem value="product">Product question</SelectItem>
+                      <SelectItem value="returns">Returns & exchanges</SelectItem>
+                      <SelectItem value="feedback">Feedback</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Message
-                  </label>
-                  <textarea
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
                     id="message"
                     name="message"
                     rows={5}
                     required
                     value={form.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)] resize-none"
+                    className="mt-2 resize-none"
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-                >
+                <Button type="submit" className="w-full uppercase tracking-wider">
                   Send Message
-                </button>
+                </Button>
               </form>
             )}
           </div>

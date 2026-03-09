@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Heart } from "lucide-react";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useWishlistStore } from "@/store/wishlist-store";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -17,13 +20,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const toggleWishlist = useWishlistStore((s) => s.toggleItem);
 
   return (
-    <article
-      className={cn(
-        "group relative flex flex-col",
-        className
-      )}
-    >
-      <Link href={`/products/${product.slug}`} className="block overflow-hidden aspect-[3/4] bg-[var(--muted-bg)]">
+    <article className={cn("group relative flex flex-col", className)}>
+      <Link href={`/products/${product.slug}`} className="block overflow-hidden aspect-[3/4] bg-muted">
         <Image
           src={product.images[0] ?? ""}
           alt={product.name}
@@ -32,20 +30,20 @@ export function ProductCard({ product, className }: ProductCardProps) {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {product.isNewArrival && (
-          <span className="absolute top-4 left-4 bg-[var(--accent)] text-white text-xs font-medium uppercase tracking-wider px-3 py-1">
+          <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-0 uppercase tracking-wider">
             New
-          </span>
+          </Badge>
         )}
         {product.compareAtPrice && (
-          <span className="absolute top-4 right-4 bg-foreground text-white text-xs font-medium uppercase tracking-wider px-3 py-1">
+          <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground border-0 uppercase tracking-wider">
             Sale
-          </span>
+          </Badge>
         )}
       </Link>
 
       <div className="mt-4 flex flex-col gap-1">
         <Link href={`/products/${product.slug}`}>
-          <h3 className="font-serif text-lg font-medium text-foreground group-hover:text-[var(--accent)] transition-colors">
+          <h3 className="font-serif text-lg font-medium text-foreground group-hover:text-accent transition-colors">
             {product.name}
           </h3>
         </Link>
@@ -54,30 +52,30 @@ export function ProductCard({ product, className }: ProductCardProps) {
             {formatPrice(product.price)}
           </span>
           {product.compareAtPrice && (
-            <span className="text-sm text-[var(--foreground-muted)] line-through">
+            <span className="text-sm text-muted-foreground line-through">
               {formatPrice(product.compareAtPrice)}
             </span>
           )}
         </div>
       </div>
 
-      <button
+      <Button
         type="button"
-        className="absolute top-4 right-4 p-2 bg-white/90 hover:bg-white transition-colors z-10"
+        variant="secondary"
+        size="icon"
+        className="absolute top-4 right-4 size-9 bg-background/90 hover:bg-background border-0 shadow-sm z-10"
         onClick={(e) => {
           e.preventDefault();
           toggleWishlist(product);
         }}
         aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
       >
-        <svg
-          className={cn("w-5 h-5 transition-colors", isInWishlist ? "fill-[var(--accent)] text-[var(--accent)]" : "fill-none stroke-current text-foreground/70")}
+        <Heart
+          className={cn("size-5 transition-colors", isInWishlist ? "fill-accent text-accent" : "fill-none")}
           stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      </button>
+          strokeWidth={1.5}
+        />
+      </Button>
     </article>
   );
 }

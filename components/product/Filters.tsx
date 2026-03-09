@@ -3,7 +3,15 @@
 import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface FiltersProps {
   sizes: string[];
@@ -22,6 +30,7 @@ const sortOptions = [
 export function Filters({ sizes, colors }: FiltersProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const router = useRouter();
 
   const buildHref = useCallback(
     (key: string, value: string | null) => {
@@ -41,9 +50,12 @@ export function Filters({ sizes, colors }: FiltersProps) {
   const selectedColor = searchParams.get("color");
   const selectedSort = searchParams.get("sort") ?? "newest";
 
+  const handleSortChange = (value: string | null) => {
+    if (value) router.push(buildHref("sort", value));
+  };
+
   return (
     <aside className="w-full md:w-64 flex-shrink-0 space-y-8">
-      {/* Size */}
       <div>
         <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Size</h3>
         <div className="flex flex-wrap gap-2">
@@ -57,8 +69,8 @@ export function Filters({ sizes, colors }: FiltersProps) {
                 className={cn(
                   "inline-flex h-10 min-w-[40px] items-center justify-center border px-4 text-sm font-medium transition-colors",
                   isActive
-                    ? "border-foreground bg-foreground text-white"
-                    : "border-[var(--border)] hover:border-foreground/50 text-foreground"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border hover:border-foreground/50 text-foreground"
                 )}
               >
                 {size}
@@ -68,7 +80,6 @@ export function Filters({ sizes, colors }: FiltersProps) {
         </div>
       </div>
 
-      {/* Color */}
       <div>
         <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Color</h3>
         <div className="flex flex-wrap gap-2">
@@ -81,7 +92,7 @@ export function Filters({ sizes, colors }: FiltersProps) {
                 href={href}
                 className={cn(
                   "block w-10 h-10 rounded-full border-2 transition-all",
-                  isActive ? "border-foreground scale-110" : "border-[var(--border)] hover:border-foreground/50"
+                  isActive ? "border-primary scale-110" : "border-border hover:border-foreground/50"
                 )}
                 style={{ backgroundColor: color.hex }}
                 title={color.name}
@@ -92,23 +103,20 @@ export function Filters({ sizes, colors }: FiltersProps) {
         </div>
       </div>
 
-      {/* Sort */}
       <div>
         <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Sort by</h3>
-        <select
-          value={selectedSort}
-          onChange={(e) => {
-            const href = buildHref("sort", e.target.value);
-            window.location.href = href;
-          }}
-          className="w-full px-4 py-3 text-sm bg-white border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
-        >
-          {sortOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <Select value={selectedSort} onValueChange={handleSortChange}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Sort by" />
+          </SelectTrigger>
+          <SelectContent>
+            {sortOptions.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </aside>
   );

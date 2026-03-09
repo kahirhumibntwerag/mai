@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const footerLinks = {
   shop: [
@@ -31,7 +33,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[var(--muted-bg)] mt-24">
+    <footer className="bg-muted mt-24">
       <div className="container-luxury py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Brand */}
@@ -39,7 +41,7 @@ export function Footer() {
             <Link href="/" className="font-serif text-2xl font-medium tracking-wide">
               MAI
             </Link>
-            <p className="mt-4 text-sm text-[var(--foreground-muted)] max-w-xs">
+            <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Luxury women&apos;s fashion. Curated pieces for the modern woman.
             </p>
           </div>
@@ -54,7 +56,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[var(--foreground-muted)] hover:text-foreground transition-colors"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -73,7 +75,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[var(--foreground-muted)] hover:text-foreground transition-colors"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -87,43 +89,40 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground mb-4">
               Newsletter
             </h3>
-            <p className="text-sm text-[var(--foreground-muted)] mb-4">
+            <p className="text-sm text-muted-foreground mb-4">
               Subscribe for exclusive offers and new arrivals.
             </p>
             {subscribed ? (
-              <p className="text-sm text-[var(--accent)] font-medium">
+              <p className="text-sm text-accent font-medium">
                 Thank you for subscribing.
               </p>
             ) : (
               <form onSubmit={handleNewsletter} className="flex gap-2">
-                <input
+                <Input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
-                  className="flex-1 min-w-0 px-4 py-2 text-sm bg-white border border-[var(--border)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] focus:border-[var(--accent)]"
+                  className="flex-1 min-w-0 bg-background"
                   required
                 />
-                <button
-                  type="submit"
-                  className="px-4 py-2 text-sm font-medium bg-foreground text-white hover:bg-foreground/90 transition-colors whitespace-nowrap"
-                >
+                <Button type="submit" className="whitespace-nowrap">
                   Subscribe
-                </button>
+                </Button>
               </form>
             )}
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-[var(--border)] flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-[var(--foreground-muted)]">
+        <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} MAI. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-xs text-[var(--foreground-muted)] hover:text-foreground">
+            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-xs text-[var(--foreground-muted)] hover:text-foreground">
+            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground">
               Terms of Service
             </Link>
           </div>

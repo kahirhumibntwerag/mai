@@ -7,6 +7,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { getOrder } from "@/store/order-store";
 import { formatPrice } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 function OrderConfirmationContent() {
   const searchParams = useSearchParams();
@@ -25,15 +28,12 @@ function OrderConfirmationContent() {
         <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-8">
           Order Confirmation
         </h1>
-        <p className="text-[var(--foreground-muted)] mb-8">
+        <p className="text-muted-foreground mb-8">
           No order ID provided. Please check your email for order details.
         </p>
-        <Link
-          href="/"
-          className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-        >
+        <Button render={<Link href="/" />} nativeButton={false} className="uppercase tracking-wider">
           Continue Shopping
-        </Link>
+        </Button>
       </div>
     );
   }
@@ -44,7 +44,7 @@ function OrderConfirmationContent() {
         <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-8">
           Order Confirmation
         </h1>
-        <p className="text-[var(--foreground-muted)] mb-8">
+        <p className="text-muted-foreground mb-8">
           Loading order details...
         </p>
       </div>
@@ -60,24 +60,26 @@ function OrderConfirmationContent() {
         <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-4">
           Thank You
         </h1>
-        <p className="text-lg text-[var(--foreground-muted)] mb-2">
+        <p className="text-lg text-muted-foreground mb-2">
           Your order has been placed successfully.
         </p>
         <p className="text-sm font-medium">
-          Order number: <span className="text-[var(--accent)]">{order.orderNumber}</span>
+          Order number: <span className="text-accent">{order.orderNumber}</span>
         </p>
       </div>
 
       <div className="max-w-xl mx-auto space-y-8">
-        <section className="p-6 border border-[var(--border)]">
-          <h2 className="font-serif text-lg font-medium mb-4">Order Details</h2>
-          <div className="space-y-4 text-sm">
+        <Card className="border-border">
+          <CardHeader>
+            <h2 className="font-serif text-lg font-medium">Order Details</h2>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm">
             <div>
-              <p className="text-[var(--foreground-muted)]">Items</p>
+              <p className="text-muted-foreground">Items</p>
               <ul className="mt-2 space-y-3">
                 {order.items.map((item, i) => (
                   <li key={i} className="flex gap-4 items-center">
-                    <div className="relative w-12 h-16 flex-shrink-0 bg-[var(--muted-bg)] overflow-hidden">
+                    <div className="relative w-12 h-16 flex-shrink-0 bg-muted overflow-hidden">
                       <Image
                         src={item.imageUrl}
                         alt={item.productName}
@@ -88,7 +90,7 @@ function OrderConfirmationContent() {
                     </div>
                     <div className="flex-1">
                       <p className="font-medium">{item.productName}</p>
-                      <p className="text-[var(--foreground-muted)]">
+                      <p className="text-muted-foreground">
                         {item.size} / {item.color} × {item.quantity}
                       </p>
                     </div>
@@ -97,12 +99,13 @@ function OrderConfirmationContent() {
                 ))}
               </ul>
             </div>
-            <div className="pt-4 border-t border-[var(--border)] flex justify-between">
-              <span className="text-[var(--foreground-muted)]">Subtotal</span>
+            <Separator />
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Subtotal</span>
               <span>{formatPrice(order.subtotal)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[var(--foreground-muted)]">Shipping</span>
+              <span className="text-muted-foreground">Shipping</span>
               <span>
                 {order.shippingCost === 0 ? "Free" : formatPrice(order.shippingCost)}
               </span>
@@ -111,32 +114,33 @@ function OrderConfirmationContent() {
               <span>Total</span>
               <span>{formatPrice(order.total)}</span>
             </div>
-          </div>
-        </section>
+          </CardContent>
+        </Card>
 
-        <section className="p-6 border border-[var(--border)]">
-          <h2 className="font-serif text-lg font-medium mb-4">Shipping Address</h2>
-          <p className="text-sm text-[var(--foreground-muted)]">
-            {order.customerName}
-            <br />
-            {order.shippingAddress}
-            <br />
-            {order.shippingCity}, {order.shippingZip}
-            <br />
-            {order.shippingCountry}
-          </p>
-          <p className="mt-4 text-sm text-[var(--foreground-muted)]">
-            Estimated delivery: {estDelivery.toLocaleDateString()}
-          </p>
-        </section>
+        <Card className="border-border">
+          <CardHeader>
+            <h2 className="font-serif text-lg font-medium">Shipping Address</h2>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              {order.customerName}
+              <br />
+              {order.shippingAddress}
+              <br />
+              {order.shippingCity}, {order.shippingZip}
+              <br />
+              {order.shippingCountry}
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Estimated delivery: {estDelivery.toLocaleDateString()}
+            </p>
+          </CardContent>
+        </Card>
 
         <div className="text-center">
-          <Link
-            href="/collections/dresses"
-            className="inline-block px-8 py-4 text-sm font-medium uppercase tracking-wider bg-foreground text-white hover:bg-foreground/90 transition-colors"
-          >
+          <Button render={<Link href="/collections/dresses" />} nativeButton={false} className="uppercase tracking-wider">
             Continue Shopping
-          </Link>
+          </Button>
         </div>
       </div>
     </div>
@@ -151,7 +155,7 @@ export default function OrderConfirmationPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-wide mb-8">
             Order Confirmation
           </h1>
-          <p className="text-[var(--foreground-muted)]">Loading...</p>
+          <p className="text-muted-foreground">Loading...</p>
         </div>
       }
     >
