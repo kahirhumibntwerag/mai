@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Heart, ShoppingBag, Menu } from "lucide-react";
+import { Search, Heart, ShoppingBag, Menu, Star } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { Button } from "@/components/ui/button";
@@ -16,12 +16,10 @@ import {
 import { CartSheet } from "@/components/layout/CartSheet";
 
 const navLinks = [
-  { href: "/collections/dresses", label: "Dresses" },
-  { href: "/collections/tops", label: "Tops" },
-  { href: "/collections/bottoms", label: "Bottoms" },
-  { href: "/collections/outerwear", label: "Outerwear" },
-  { href: "/collections/accessories", label: "Accessories" },
-  { href: "/collections/shoes", label: "Shoes" },
+  { href: "/", label: "Home" },
+  { href: "/collections/dresses", label: "Shop" },
+  { href: "/collections/dresses", label: "Categories" },
+  { href: "/search?q=sale", label: "Sale" },
 ];
 
 export function Header() {
@@ -29,70 +27,57 @@ export function Header() {
   const wishlistCount = useWishlistStore((s) => s.items.length);
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
+    <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="container-luxury">
-        <div className="flex h-16 md:h-20 items-center justify-between gap-4">
-          <Link href="/" className="font-serif text-xl md:text-2xl font-medium tracking-wide">
+        <div className="flex h-14 md:h-16 items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-1.5 font-semibold text-lg uppercase tracking-wider text-foreground">
+            <Star className="size-5 fill-destructive text-destructive" aria-hidden />
             Celeste
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.href + link.label}
                 href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
+                className="text-sm font-medium text-foreground/90 hover:text-foreground transition-colors"
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/about"
-              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-            >
-              About
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-            >
-              Contact
-            </Link>
           </nav>
 
-          <div className="flex items-center gap-2 md:gap-4">
+          <div className="flex items-center gap-1 md:gap-3">
             <Link
               href="/search"
-              className="flex size-8 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              className="flex size-9 items-center justify-center text-foreground hover:text-foreground/80 transition-colors"
               aria-label="Search"
             >
               <Search className="size-5" />
             </Link>
-
             <Link
               href="/wishlist"
-              className="relative flex size-8 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              className="relative flex size-9 items-center justify-center text-foreground hover:text-foreground/80 transition-colors"
               aria-label="Wishlist"
             >
               <Heart className="size-5" />
               {wishlistCount > 0 && (
-                <Badge className="absolute -top-0.5 -right-0.5 size-4 min-w-4 p-0 rounded-full flex items-center justify-center text-[10px] bg-accent text-accent-foreground border-0">
+                <span className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-white">
                   {wishlistCount}
-                </Badge>
+                </span>
               )}
             </Link>
-
             <CartSheet>
               <button
                 type="button"
-                className="relative flex size-8 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                className="relative flex size-9 items-center justify-center text-foreground hover:text-foreground/80 transition-colors"
                 aria-label="Cart"
               >
                 <ShoppingBag className="size-5" />
                 {itemCount > 0 && (
-                  <Badge className="absolute -top-0.5 -right-0.5 size-4 min-w-4 p-0 rounded-full flex items-center justify-center text-[10px] bg-accent text-accent-foreground border-0">
+                  <span className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-white">
                     {itemCount}
-                  </Badge>
+                  </span>
                 )}
               </button>
             </CartSheet>
@@ -105,28 +90,22 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[280px] p-4">
                 <SheetHeader>
-                  <SheetTitle className="font-serif">Menu</SheetTitle>
+                  <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-4 pt-6">
                   {navLinks.map((link) => (
                     <Link
-                      key={link.href}
+                      key={link.href + link.label}
                       href={link.href}
-                      className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
+                      className="text-sm font-medium text-foreground/90 hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
                   ))}
-                  <Link
-                    href="/about"
-                    className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-                  >
+                  <Link href="/about" className="text-sm font-medium text-foreground/90 hover:text-foreground transition-colors">
                     About
                   </Link>
-                  <Link
-                    href="/contact"
-                    className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide uppercase"
-                  >
+                  <Link href="/contact" className="text-sm font-medium text-foreground/90 hover:text-foreground transition-colors">
                     Contact
                   </Link>
                 </nav>
